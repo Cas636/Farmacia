@@ -1,26 +1,92 @@
 package views;
 
+import controllers.CategoriesController;
+import controllers.CustomersController;
+import controllers.EmployeesController;
+import controllers.ProductsController;
+import controllers.PurchasesController;
+import controllers.SalesController;
+import controllers.SuppliersController;
 import controllers.settingsController;
+import models.Categories;
+import models.CategoriesDAO;
+import models.Customers;
+import models.CustomersDAO;
+import models.Employees;
+import models.EmployeesDAO;
+import static models.EmployeesDAO.full_name_user;
+import static models.EmployeesDAO.rol_user;
+import models.Products;
+import models.ProductsDAO;
+import models.Purchases;
+import models.PurchasesDAO;
+import models.Sales;
+import models.SalesDAO;
+import models.Suppliers;
+import models.SuppliersDAO;
 
-/**
- *
- * @author JOHAN
- */
 public class systemView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form systemView
-     */
+    //Empleados
+    Employees employee = new Employees();
+    EmployeesDAO employeesDao = new EmployeesDAO();
+    //Clientes
+    Customers customer = new Customers();
+    CustomersDAO customerDao = new CustomersDAO();
+    //proveedores
+    Suppliers supplier = new Suppliers();
+    SuppliersDAO supplierDao = new SuppliersDAO();
+    //categorias
+    Categories category = new Categories();
+    CategoriesDAO categoryDao = new CategoriesDAO();
+    //productos
+    Products product = new Products();
+    ProductsDAO productDao = new ProductsDAO();    
+    //compras
+    Purchases purchase = new Purchases();
+    PurchasesDAO purchaseDao = new PurchasesDAO();
+    //ventas
+    Sales sale = new Sales();
+    SalesDAO saleDao = new SalesDAO();
+    
+
     public systemView() {
         initComponents();
-        setSize(1208,680);
+        setSize(1208, 680);
         setResizable(false);
-        setTitle("Panel de Administración");
         setLocationRelativeTo(null);
-        
+        titleInterface();
         //controlador del settings
-        settingsController settings = new settingsController(this);
+        settingsController setting = new settingsController(this);
         this.repaint();
+
+        //Controlador de empleados
+        EmployeesController employee_account = new EmployeesController(employee, employeesDao, this);
+        employee_account.listAllEmployees();    
+        //Controlador de clientes
+        CustomersController customer_account = new CustomersController(customer, customerDao, this);
+        customer_account.listAllCustomers();
+        //controlador de proveedores
+        SuppliersController supplier_account = new SuppliersController(supplier, supplierDao, this);
+        supplier_account.listAllSuppliers();
+        //controlador categorias
+        CategoriesController category_section = new CategoriesController(category, categoryDao, this);
+        category_section.listAllCategories();
+        //controlador productos
+        ProductsController products_section = new ProductsController(product, productDao, this);
+        products_section.listAllProducts();        
+        //controlador compras
+        PurchasesController purchases_section = new PurchasesController(purchase, purchaseDao, this);
+        
+        //controlador de ventas
+        SalesController sales_section = new SalesController(sale, saleDao, this);
+    }
+
+    public String titleInterface() {
+        setTitle("Panel - "+rol_user);
+        label_name_employee.setText(full_name_user);
+        label_name_rol.setText(rol_user);
+        return rol_user.trim();
     }
 
     /**
@@ -57,6 +123,8 @@ public class systemView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btn_photo = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
+        label_name_employee = new javax.swing.JLabel();
+        label_name_rol = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -211,6 +279,7 @@ public class systemView extends javax.swing.JFrame {
         btn_register_category = new javax.swing.JButton();
         btn_update_category = new javax.swing.JButton();
         btn_delete_category = new javax.swing.JButton();
+        btn_cancel_category = new javax.swing.JButton();
         jLabel43 = new javax.swing.JLabel();
         txt_search_category = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -445,7 +514,20 @@ public class systemView extends javax.swing.JFrame {
 
         btn_logout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_logout.setText("Salir");
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 35, 60, 30));
+
+        label_name_employee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_name_employee.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(label_name_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 130, 30));
+
+        label_name_rol.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_name_rol.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(label_name_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, 130, 30));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1010, 100));
 
@@ -1045,7 +1127,7 @@ public class systemView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Identificación", "Nombre", "Teléfono", "Dirección", "Correo"
+                "Identificación", "Nombre", "Dirección", "Teléfono", "Correo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1391,6 +1473,9 @@ public class systemView extends javax.swing.JFrame {
         btn_delete_category.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_delete_category.setText("Eliminar");
 
+        btn_cancel_category.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_cancel_category.setText("Cancelar");
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -1406,13 +1491,15 @@ public class systemView extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_delete_category, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addComponent(txt_category_id, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(44, 44, 44)
-                                .addComponent(btn_register_category, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btn_register_category, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                                .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btn_delete_category, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                    .addComponent(btn_cancel_category, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
@@ -1429,16 +1516,15 @@ public class systemView extends javax.swing.JFrame {
                         .addComponent(btn_register_category, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16)
                 .addComponent(btn_update_category, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel42)
-                            .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_delete_category, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel42)
+                        .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_delete_category, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btn_cancel_category, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel9.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 520, 270));
@@ -1636,7 +1722,15 @@ public class systemView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        if (evt.getSource() == btn_logout) {
+            dispose();
+            loginView login = new loginView();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_logoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1675,6 +1769,7 @@ public class systemView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_add_product_sale;
     public javax.swing.JButton btn_add_product_to_buy;
+    public javax.swing.JButton btn_cancel_category;
     public javax.swing.JButton btn_cancel_customer;
     public javax.swing.JButton btn_cancel_employee;
     public javax.swing.JButton btn_cancel_product;
@@ -1705,7 +1800,7 @@ public class systemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_update_supplier;
     public javax.swing.JTable categories_table;
     public javax.swing.JComboBox<Object> cmb_product_category;
-    public javax.swing.JComboBox<String> cmb_purchase_supplier;
+    public javax.swing.JComboBox<Object> cmb_purchase_supplier;
     public javax.swing.JComboBox<String> cmb_rol;
     public javax.swing.JComboBox<String> cmb_supplier_city;
     public javax.swing.JTable customers_table;
@@ -1820,6 +1915,8 @@ public class systemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     public javax.swing.JTabbedPane jTabbedPane1;
+    public javax.swing.JLabel label_name_employee;
+    public javax.swing.JLabel label_name_rol;
     public javax.swing.JTable products_table;
     public javax.swing.JTable purchases_table;
     public javax.swing.JTable sales_table;
