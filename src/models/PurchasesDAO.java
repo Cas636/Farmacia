@@ -42,8 +42,8 @@ public class PurchasesDAO {
     //registrar detalles de compra
     public boolean registerPurchaseDetailQuery(int purchase_id, double purchase_price, int purchase_amount,
             double purchase_subtotal, int product_id) {
-        String query = "INSERT INTO purchases_details (purchase_id, purchase_price, purchase_amount, "
-                + " purchase_subtotal, purchase_date, product_id) VALUES(?,?,?,?,?,?)";
+        String query = "INSERT INTO purchase_details (purchase_id, purchase_price, purchase_amount, "
+                + " purchase_subtotal, product_id) VALUES(?,?,?,?,?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
             conn = cn.getConnection();
@@ -52,8 +52,7 @@ public class PurchasesDAO {
             pst.setDouble(2, purchase_price);
             pst.setInt(3, purchase_amount);
             pst.setDouble(4, purchase_subtotal);
-            pst.setTimestamp(5, datetime);
-            pst.setInt(6, product_id);
+            pst.setInt(5, product_id);
             pst.execute();
             return true;
 
@@ -83,7 +82,7 @@ public class PurchasesDAO {
     //listar todas las compras realizadas
      public List listAllPurchasesQuery() {
         List<Purchases> list_purchase = new ArrayList();
-        String query = "SELECT pu.*, su.name AS supplier_name FROM purchases pu, suppliers su"
+        String query = "SELECT pu.*, su.name AS supplier_name FROM purchases pu, suppliers su "
                 + "WHERE pu.supplier_id = su.id ORDER BY pu.id ASC";
         try {
             conn = cn.getConnection();
@@ -128,6 +127,7 @@ public class PurchasesDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
+
         }
         return list_purchases;
     }

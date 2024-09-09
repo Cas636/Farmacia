@@ -19,13 +19,13 @@ public class EmployeesDAO {
     ResultSet rs;
 
     //variables para enviar datos entre interfaces
-    public int id_user = 0;
-    public String full_name_user = "";
-    public String username_user = "";
-    public String address_user = "";
-    public String telephone_user = "";
-    public String email_user = "";
-    public String rol_user = "";
+    public static int id_user = 0;
+    public static String full_name_user = "";
+    public static String username_user = "";
+    public static String address_user = "";
+    public static String telephone_user = "";
+    public static String email_user = "";
+    public static String rol_user = "";
 
     //Metodo de Login
     public Employees loginQuery(String user, String password) {
@@ -63,7 +63,7 @@ public class EmployeesDAO {
 
     //registrar empleado
     public boolean registerEmployeeQuery(Employees employee) {
-        String query = "INSERT INTO employees (id, full_name, username, address, telephone, email, password, rol, created"
+        String query = "INSERT INTO employees (id, full_name, username, address, telephone, email, password, rol, created,"
                 + "updated) VALUES(?,?,?,?,?,?,?,?,?,?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
@@ -76,7 +76,7 @@ public class EmployeesDAO {
             pst.setString(5, employee.getTelephone());
             pst.setString(6, employee.getEmail());
             pst.setString(7, employee.getPassword());
-            pst.setString(2, employee.getRol());
+            pst.setString(8, employee.getRol());
             pst.setTimestamp(9, datetime);
             pst.setTimestamp(10, datetime);
             pst.execute();

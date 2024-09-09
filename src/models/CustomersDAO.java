@@ -24,7 +24,7 @@ public class CustomersDAO {
 
     //registrar cliente
     public boolean registerCustomerQuery(Customers customer) {
-        String query = "INSERT INTO employees (id, full_name, address, telephone, email, created, updated) "
+        String query = "INSERT INTO customers (id, full_name, address, telephone, email, created, updated) "
                 + "VALUES(?,?,?,?,?,?,?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
@@ -38,6 +38,7 @@ public class CustomersDAO {
             pst.setTimestamp(6, datetime);
             pst.setTimestamp(7, datetime);
             pst.execute();
+            System.out.println("models.CustomersDAO.registerCustomerQuery()");
             return true;
 
         } catch (SQLException e) {
@@ -75,9 +76,28 @@ public class CustomersDAO {
         return list_customers;
     }
 
-    //modificar cliente
+    //traer un cliente especifico
+    public Customers searchCustomer(int id) {
+       String query = "SELECT cu.full_name FROM customers cu WHERE cu.id = ?";
+        Customers customer = new Customers();
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                customer.setFull_name(rs.getString("full_name"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return customer;
+
+        }
+    
+        //modificar cliente
     public boolean updateCustomerQuery(Customers customer) {
-        String query = "UPDATE employees SET full_name = ?, address = ?, telephone = ?, email = ?, updated = ?"
+        String query = "UPDATE customers SET full_name = ?, address = ?, telephone = ?, email = ?, updated = ?"
                 + " WHERE id = ?";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
@@ -91,7 +111,6 @@ public class CustomersDAO {
             pst.setInt(6, customer.getId());
             pst.execute();
             return true;
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar los datos del cliente: " + e);
             return false;
@@ -106,12 +125,9 @@ public class CustomersDAO {
             pst = conn.prepareStatement(query);
             pst.execute();
             return true;
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar el cliente porque tiene realción con otra tabla: " + e);
             return false;
         }
-
     }
-
 }

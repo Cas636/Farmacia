@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
+
+import controllers.LoginController;
+import models.Employees;
+import models.EmployeesDAO;
 
 /**
  *
@@ -10,11 +10,13 @@ package views;
  */
 public class loginView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form loginView
-     */
+    Employees employee = new Employees();
+    EmployeesDAO employees_dao = new EmployeesDAO();
+            
     public loginView() {
         initComponents();
+        //iniciar el controlador del login
+        LoginController employee_login = new LoginController(employee, employees_dao, this);
         setSize(930,415);
         setResizable(false);
         setTitle("Ingresar al Sistema");
