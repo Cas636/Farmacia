@@ -1,0 +1,36 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-191aa769b34-438e423e8eac6fea": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "PHARMACY_DATABASE",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "PHARMACY_DATABASE",
+				"url": "jdbc:mysql://localhost:3306/PHARMACY_DATABASE",
+				"configurationType": "MANUAL",
+				"home": "mysql_client",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"virtual-models": {"mysql8-191aa769b34-438e423e8eac6fea":{"pharmacy_database":{"@properties":{"erd.diagram.state":{"serialized":"\u003cdiagram version\u003d\"1\" name\u003d\"empty\" time\u003d\"202409031347\"\u003e\u003centities\u003e\u003cdata-source id\u003d\"mysql8-191aa769b34-438e423e8eac6fea\"\u003e\u003centity id\u003d\"1\" name\u003d\"categories\" fq-name\u003d\"pharmacy_database.categories\" order\u003d\"0\" border-width\u003d\"3\" x\u003d\"738\" y\u003d\"178\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"2\" name\u003d\"customers\" fq-name\u003d\"pharmacy_database.customers\" order\u003d\"1\" x\u003d\"352\" y\u003d\"691\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"3\" name\u003d\"employees\" fq-name\u003d\"pharmacy_database.employees\" order\u003d\"2\" x\u003d\"352\" y\u003d\"391\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"4\" name\u003d\"products\" fq-name\u003d\"pharmacy_database.products\" order\u003d\"3\" x\u003d\"359\" y\u003d\"125\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"5\" name\u003d\"purchase_details\" fq-name\u003d\"pharmacy_database.purchase_details\" order\u003d\"4\" x\u003d\"22\" y\u003d\"158\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"6\" name\u003d\"purchases\" fq-name\u003d\"pharmacy_database.purchases\" order\u003d\"5\" x\u003d\"50\" y\u003d\"452\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"7\" name\u003d\"suppliers\" fq-name\u003d\"pharmacy_database.suppliers\" order\u003d\"6\" x\u003d\"55\" y\u003d\"651\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"8\" name\u003d\"sales\" fq-name\u003d\"pharmacy_database.sales\" order\u003d\"7\" x\u003d\"751\" y\u003d\"666\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003centity id\u003d\"9\" name\u003d\"sales_details\" fq-name\u003d\"pharmacy_database.sales_details\" order\u003d\"8\" x\u003d\"723\" y\u003d\"381\"\u003e\u003cpath name\u003d\"pharmacy_database\"/\u003e\u003c/entity\u003e\u003c/data-source\u003e\u003c/entities\u003e\u003crelations\u003e\u003crelation name\u003d\"product_category\" fq-name\u003d\"pharmacy_database.products.product_category\" type\u003d\"fk\" pk-ref\u003d\"1\" fk-ref\u003d\"4\"/\u003e\u003crelation name\u003d\"sale_customer\" fq-name\u003d\"pharmacy_database.sales.sale_customer\" type\u003d\"fk\" pk-ref\u003d\"2\" fk-ref\u003d\"8\"/\u003e\u003crelation name\u003d\"purchase_employee\" fq-name\u003d\"pharmacy_database.purchases.purchase_employee\" type\u003d\"fk\" pk-ref\u003d\"3\" fk-ref\u003d\"6\"/\u003e\u003crelation name\u003d\"sale_employee\" fq-name\u003d\"pharmacy_database.sales.sale_employee\" type\u003d\"fk\" pk-ref\u003d\"3\" fk-ref\u003d\"8\"/\u003e\u003crelation name\u003d\"product_purchase_detail\" fq-name\u003d\"pharmacy_database.purchase_details.product_purchase_detail\" type\u003d\"fk\" pk-ref\u003d\"4\" fk-ref\u003d\"5\"/\u003e\u003crelation name\u003d\"product_sale_details\" fq-name\u003d\"pharmacy_database.sales_details.product_sale_details\" type\u003d\"fk\" pk-ref\u003d\"4\" fk-ref\u003d\"9\"/\u003e\u003crelation name\u003d\"purchase_purchase_detail\" fq-name\u003d\"pharmacy_database.purchase_details.purchase_purchase_detail\" type\u003d\"fk\" pk-ref\u003d\"6\" fk-ref\u003d\"5\"/\u003e\u003crelation name\u003d\"purchase_supplier\" fq-name\u003d\"pharmacy_database.purchases.purchase_supplier\" type\u003d\"fk\" pk-ref\u003d\"7\" fk-ref\u003d\"6\"/\u003e\u003crelation name\u003d\"sale_sale_detail\" fq-name\u003d\"pharmacy_database.sales_details.sale_sale_detail\" type\u003d\"fk\" pk-ref\u003d\"8\" fk-ref\u003d\"9\"/\u003e\u003c/relations\u003e\u003c/diagram\u003e"}}}}},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800
+		}
+	}
+}
